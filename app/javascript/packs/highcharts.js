@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // Create a chart from the Highcharts API.
   var myChart = Highcharts.chart('chart', {
       chart: {
-          type: 'bar'
+          type: 'line'
       },
       title: {
           text: 'Fruit Consumption'
