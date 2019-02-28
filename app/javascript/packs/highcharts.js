@@ -54,13 +54,13 @@ button.addEventListener('click', function () {
   eur.sort();
   ars.sort();
 
-  var myChart = Highcharts.chart('clickme', {
+  var myChart = Highcharts.chart('container', {
       chart: {
           height: '40%',
           type: 'line'
       },
       title: {
-          text: 'Paridades'
+          text: 'Cotações'
       },
       xAxis: {
           categories: dates
