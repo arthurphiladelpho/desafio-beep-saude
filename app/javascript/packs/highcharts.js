@@ -21,57 +21,49 @@ function grabDates(daysBefore){
 // Criei um array vazio pra guardar todas as informações.
 var results = [];
 
-// O exercício pede a cotação do dólar dos 7 últimos dias pro real, euro e peso argentino.
 for (var i = 0; i <= 6; i++){
-  $.ajax({
-    url: 'http://apilayer.net/api/historical?access_key=1e1d044abd41d0059b0afbd5bc9fe17b&date='+ grabDates(i),
-    dataType: 'jsonp',
-    success: function(json) {
-      // Criei um objeto pra cada dia que vai segurar o valor das cotações
-      var res = {};
-      res['date'] = json.date;
-      res['brl'] = json.quotes.USDBRL;
-      res['eur'] = json.quotes.USDEUR;
-      res['ars'] = json.quotes.USDARS;
-      results.push(res);
-    }
+  fetch('http://apilayer.net/api/historical?access_key=f025674478ec665d743c5bb618b6981c&date='+ grabDates(i))
+  .then(response => response.json())
+  .then((data) => {
+    var res = {};
+    res['date'] = data.date;
+    res['brl'] = data.quotes.USDBRL;
+    res['eur'] = data.quotes.USDEUR;
+    res['ars'] = data.quotes.USDARS;
+    results.push(res);
   });
 }
 
-// Aqui eu to logando os resultados.
-// Quando eu logo results sozinho, aparece um array no console com 7 objetos.
-// Já quando eu logo a length, dá 0.
-// E quando eu logo o primeiro item dá undefined.
-
-console.log('results:')
-console.log(results);
-console.log('---------------');
-console.log('results length:')
-console.log(results.length);
-console.log('---------------');
-console.log('results:')
-console.log(results);
-console.log('---------------');
-console.log('results first item:')
-console.log(results[0]);
-console.log('---------------');
-
-
-document.addEventListener('DOMContentLoaded', function () {
+const button = document.querySelector('#clickme');
+button.addEventListener('click', function () {
   // Create a chart from the Highcharts API.
-  var myChart = Highcharts.chart('chart', {
+  const dates = [];
+  const brl = [];
+  const eur = [];
+  const ars = [];
+
+  results.forEach((element) =>{
+    dates.push(element['date']);
+    brl.push(element['brl']);
+    eur.push(element['eur']);
+    ars.push(element['ars']);
+  })
+
+  dates.sort();
+  brl.sort();
+  eur.sort();
+  ars.sort();
+
+  var myChart = Highcharts.chart('clickme', {
       chart: {
+          height: '80%',
           type: 'line'
       },
       title: {
           text: 'Paridades'
       },
       xAxis: {
-          categories: [
-            'Segunda',
-            'Terça',
-            'Quarta'
-          ]
+          categories: dates
       },
       yAxis: {
           title: {
@@ -80,13 +72,13 @@ document.addEventListener('DOMContentLoaded', function () {
       },
       series: [{
           name: 'Real',
-          data: [1, 0, 4]
+          data: brl
       }, {
           name: 'Euro',
-          data: [5, 7, 3]
+          data: eur
       }, {
           name: 'Peso Argentino',
-          data: [4, 6, 5]
+          data: ars
       }]
   });
 });
