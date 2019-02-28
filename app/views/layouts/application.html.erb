@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>TODO</title>
+    <title>Desafio Beep Saúde</title>
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
@@ -13,14 +13,22 @@
   <body>
     <div class="navbar-wagon">
       <!-- Logo -->
-      <p>Arthur Philadelpho</p>
+      <p><strong>Desafio Beep Saúde - Arthur Philadelpho</strong></p>
       <!-- Right Navigation -->
-      <div class="navbar-wagon-right">
-        <p>Desafio Beep Saúde</p>
+      <div class="navbar-wagon-right hidden-xs hidden-sm">
+        <a href="https://github.com/arthurphiladelpho/desafio-beep-saude">Acessar código no Github...</a>
       </div>
     </div>
-
     <%= yield %>
+    <div class="footer">
+      <div class="footer-links">
+        <a href="https://github.com/arthurphiladelpho"><i class="fab fa-github"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+      <div class="footer-copyright">
+        <i class="fas fa-heart"></i>
+      </div>
+    </div>
     <%= javascript_include_tag 'application' %>
     <%= javascript_pack_tag 'application' %>
   </body>
