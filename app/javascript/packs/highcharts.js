@@ -56,7 +56,7 @@ button.addEventListener('click', function () {
 
   var myChart = Highcharts.chart('clickme', {
       chart: {
-          height: '80%',
+          height: '40%',
           type: 'line'
       },
       title: {
