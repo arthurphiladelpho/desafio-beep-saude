@@ -1,31 +1,43 @@
-function log(i){
-  console.log(i);
-}
-
 // Essa funçao vai pegar a data e transformar no string que eu preciso pra acessar o API.
 function grabDates(daysBefore){
-  var today = new Date();
-  var dd = today.getDate() - daysBefore;
-  dd = dd.toString();
-  var mm = today.getMonth() + 1; //January is 0!
+  const today = new Date();
+  let dd = today.getDate() - daysBefore;
+  // O dia precisa ser definido com 2 digitos.
+  if (dd < 10){
+    dd = '0' + dd.toString();
+  } else {
+    dd.toString();
+  }
+  let mm = today.getMonth() + 1; //Janeiro é 0.
+  // O mês precisa ser definido com 2 digitos.
   if (mm < 10){
     mm = '0' + mm.toString();
   } else {
-    mm = mm.toString();
+    mm.toString();
   }
-  var yyyy = today.getFullYear().toString();
-  var date = yyyy + '-' + mm + '-' + dd;
+  const yyyy = today.getFullYear().toString();
+  const date = yyyy + '-' + mm + '-' + dd;
   return date;
 }
 
-// Criei um array vazio pra guardar todas as informações.
-var results = [];
+// Essa função vai ajudar a organizar nossos resultados em ordem quando usarmos o sort().
+function compare(a,b) {
+  if (a['date'] < b['date']){
+    return -1;
+  } else {
+    return 1;
+  }
+}
 
-for (var i = 0; i <= 6; i++){
-  fetch('http://apilayer.net/api/historical?access_key=f025674478ec665d743c5bb618b6981c&date='+ grabDates(i))
+// Criei um array vazio pra guardar todas as informações.
+let results = [];
+
+// Chamamos a API 7 vezes, para pegarmos a cotação de hoje e dos 6 dias anteriores.
+for (let i = 0; i <= 6; i++){
+  fetch('http://apilayer.net/api/historical?access_key=3e43389a7ab7a1fe62bfeb0514ac8239&date='+ grabDates(i))
   .then(response => response.json())
   .then((data) => {
-    var res = {};
+    let res = {};
     res['date'] = data.date;
     res['brl'] = data.quotes.USDBRL;
     res['eur'] = data.quotes.USDEUR;
@@ -34,14 +46,20 @@ for (var i = 0; i <= 6; i++){
   });
 }
 
+// Assim que clicar o botão com a ID de #clickme, o gráfico com as cotações será gerado.
 const button = document.querySelector('#clickme');
 button.addEventListener('click', function () {
-  // Create a chart from the Highcharts API.
+  // Criar um array pra cada tipo de informação que queremos.
+    // Deste jeito vai ser mais fácil para criar o gráfico.
   const dates = [];
   const brl = [];
   const eur = [];
   const ars = [];
 
+  // Organizamos nossos resultados em ordem ascendente.
+  results.sort(compare);
+
+  // Colocar as informações corretas em seus respectivos arrays.
   results.forEach((element) =>{
     dates.push(element['date']);
     brl.push(element['brl']);
@@ -49,12 +67,8 @@ button.addEventListener('click', function () {
     ars.push(element['ars']);
   })
 
-  dates.sort();
-  brl.sort();
-  eur.sort();
-  ars.sort();
-
-  var myChart = Highcharts.chart('container', {
+  // Criar o gráfico e o inserimos no div com id de content.
+  const myChart = Highcharts.chart('content', {
       chart: {
           height: '40%',
           type: 'line'

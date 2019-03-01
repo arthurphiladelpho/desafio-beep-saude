@@ -7,21 +7,21 @@
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
   </head>
   <body>
+    <!-- Navigation Bar -->
     <div class="navbar-wagon">
-      <!-- Logo -->
       <p><strong>Desafio Beep Saúde - Arthur Philadelpho</strong></p>
-      <!-- Right Navigation -->
       <div class="navbar-wagon-right hidden-xs hidden-sm">
         <a href="https://github.com/arthurphiladelpho/desafio-beep-saude">Acessar código no Github...</a>
       </div>
     </div>
+    <!-- Conteúdo -->
     <div id="container">
       <%= yield %>
     </div>
+    <!-- Footer -->
     <div class="footer">
       <div class="footer-links">
         <a href="https://github.com/arthurphiladelpho"><i class="fab fa-github"></i></a>
