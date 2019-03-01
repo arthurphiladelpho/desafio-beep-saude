@@ -52,7 +52,7 @@ for (let i = 0; i <= 6; i++){
 const brlButton = document.querySelector('#brl');
 brlButton.addEventListener('click', function () {
   // Criar um array pra cada tipo de informação que queremos.
-    // Deste jeito vai ser mais fácil para criar o gráfico.
+    // Deste jeito será mais fácil criar o gráfico.
   const dates = [];
   const brl = [];
 
@@ -92,7 +92,7 @@ brlButton.addEventListener('click', function () {
 const eurButton = document.querySelector('#eur');
 eurButton.addEventListener('click', function () {
   // Criar um array pra cada tipo de informação que queremos.
-    // Deste jeito vai ser mais fácil para criar o gráfico.
+    // Deste jeito será mais fácil criar o gráfico.
   const dates = [];
   const eur = [];
 
@@ -132,7 +132,7 @@ eurButton.addEventListener('click', function () {
 const arsButton = document.querySelector('#ars');
 arsButton.addEventListener('click', function () {
   // Criar um array pra cada tipo de informação que queremos.
-    // Deste jeito vai ser mais fácil para criar o gráfico.
+    // Deste jeito será mais fácil criar o gráfico.
   const dates = [];
   const ars = [];
 
